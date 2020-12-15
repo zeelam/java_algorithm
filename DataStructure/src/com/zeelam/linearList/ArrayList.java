@@ -1,6 +1,6 @@
 package com.zeelam.linearList;
 
-public class ArrayList {
+public class ArrayList<T> {
 
     /**
      * to count the number of elements in array
@@ -10,7 +10,7 @@ public class ArrayList {
     /**
      * the array to store the elements
      */
-    private int[] elements;
+    private T[] elements;
 
     private static final int DEFAULT_CAPACITY = 10;
 
@@ -21,14 +21,17 @@ public class ArrayList {
     }
 
     public ArrayList(int capacity) {
-        capacity = capacity < DEFAULT_CAPACITY ? DEFAULT_CAPACITY : capacity;
-        elements = new int[capacity];
+        capacity = Math.max(capacity, DEFAULT_CAPACITY);
+        elements = (T[]) new Object[capacity];
     }
 
     /**
      * remove all elements
      */
     public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
         size = 0;
     }
 
@@ -52,7 +55,7 @@ public class ArrayList {
      * judge whether the array list contain the element
      * @return
      */
-    public boolean contains(int element) {
+    public boolean contains(T element) {
         return indexOf(element) != ELEMENT_NOT_FOUND;
     }
 
@@ -60,8 +63,8 @@ public class ArrayList {
      * add the element to array
      * @param element
      */
-    public void add(int element) {
-
+    public void add(T element) {
+        add(size, element);
     }
 
     /**
@@ -69,9 +72,8 @@ public class ArrayList {
      * @param index
      * @return
      */
-    public int get(int index) {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+    public T get(int index) {
+        rangeCheck(index);
         return elements[index];
     }
 
@@ -81,10 +83,9 @@ public class ArrayList {
      * @param element
      * @return
      */
-    public int set(int index, int element) {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-        int old = elements[index];
+    public T set(int index, T element) {
+        rangeCheck(index);
+        T old = elements[index];
         elements[index] = element;
         return old;
     }
@@ -94,8 +95,14 @@ public class ArrayList {
      * @param index
      * @param element
      */
-    public void add(int index, int element) {
-
+    public void add(int index, T element) {
+        rangeCheckForAdd(index);
+        ensureCapacity(size + 1);
+        for (int i = size - 1; i >= index ; i--) {
+            elements[i + 1] = elements[i];
+        }
+        elements[index] = element;
+        size++;
     }
 
     /**
@@ -103,8 +110,14 @@ public class ArrayList {
      * @param index
      * @return
      */
-    public int remove(int index) {
-        return 0;
+    public T remove(int index) {
+        rangeCheck(index);
+        T old = elements[index];
+        for (int i = index; i < size; i++) {
+            elements[i] = elements[i + 1];
+        }
+        elements[--size] = null;
+        return old;
     }
 
     /**
@@ -112,11 +125,48 @@ public class ArrayList {
      * @param element
      * @return
      */
-    public int indexOf(int element) {
-        for (int i = 0; i < size; i++) {
-            if (elements[i] == element) return i;
+    public int indexOf(T element) {
+        if (element == null){
+            for (int i = 0; i < size; i++) if (elements[i] == null) return i;
+        } else {
+            for (int i = 0; i < size; i++) if (elements[i].equals(element)) return i;
         }
         return ELEMENT_NOT_FOUND;
     }
 
+    private void ensureCapacity(int capacity) {
+        if (elements.length < capacity) {
+            T[] newElements = (T[]) new Object[elements.length + (elements.length >> 1)];
+            for (int i = 0; i < size; i++) {
+                newElements[i] = elements[i];
+            }
+            elements = newElements;
+        }
+    }
+
+    private void outOfBounds(int index){
+        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+    }
+
+    private void rangeCheck(int index){
+        if (index < 0 || index >= size) outOfBounds(index);
+    }
+
+    private void rangeCheckForAdd(int index){
+        if (index < 0 || index > size) outOfBounds(index);
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(20);
+        sb.append("ArrayList{ size=").append(size).append(", elements=").append("[");
+        for (int i = 0; i < size; i++) {
+            if (i != 0) {
+                sb.append(", ");
+            }
+            sb.append(elements[i]);
+        }
+        return  sb.append("] }").toString();
+    }
 }
