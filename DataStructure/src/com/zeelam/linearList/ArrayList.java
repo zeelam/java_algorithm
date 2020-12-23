@@ -1,11 +1,6 @@
 package com.zeelam.linearList;
 
-public class ArrayList<T> {
-
-    /**
-     * to count the number of elements in array
-     */
-    private int size;
+public class ArrayList<T> extends AbstractList<T>{
 
     /**
      * the array to store the elements
@@ -14,7 +9,6 @@ public class ArrayList<T> {
 
     private static final int DEFAULT_CAPACITY = 10;
 
-    private static final int ELEMENT_NOT_FOUND = -1;
 
     public ArrayList(){
         this(DEFAULT_CAPACITY);
@@ -33,38 +27,6 @@ public class ArrayList<T> {
             elements[i] = null;
         }
         size = 0;
-    }
-
-    /**
-     * return the number of element in arraylist
-     * @return
-     */
-    public int size() {
-        return size;
-    }
-
-    /**
-     * judge whether the array list is empty
-     * @return
-     */
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    /**
-     * judge whether the array list contain the element
-     * @return
-     */
-    public boolean contains(T element) {
-        return indexOf(element) != ELEMENT_NOT_FOUND;
-    }
-
-    /**
-     * add the element to array
-     * @param element
-     */
-    public void add(T element) {
-        add(size, element);
     }
 
     /**
@@ -98,8 +60,8 @@ public class ArrayList<T> {
     public void add(int index, T element) {
         rangeCheckForAdd(index);
         ensureCapacity(size + 1);
-        for (int i = size - 1; i >= index ; i--) {
-            elements[i + 1] = elements[i];
+        for (int i = size; i > index ; i--) {
+            elements[i] = elements[i - 1];
         }
         elements[index] = element;
         size++;
@@ -142,18 +104,6 @@ public class ArrayList<T> {
             }
             elements = newElements;
         }
-    }
-
-    private void outOfBounds(int index){
-        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-    }
-
-    private void rangeCheck(int index){
-        if (index < 0 || index >= size) outOfBounds(index);
-    }
-
-    private void rangeCheckForAdd(int index){
-        if (index < 0 || index > size) outOfBounds(index);
     }
 
 
