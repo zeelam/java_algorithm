@@ -1,5 +1,7 @@
 package com.zeelam.linearList;
 
+import com.zeelam.linearList.singleLinkedList.LinkedList;
+
 public class Main {
 
     public static void main(String[] args) {

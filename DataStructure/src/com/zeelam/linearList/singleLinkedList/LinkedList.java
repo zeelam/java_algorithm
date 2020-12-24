@@ -1,17 +1,16 @@
-package com.zeelam.linearList;
+package com.zeelam.linearList.singleLinkedList;
+
+import com.zeelam.linearList.AbstractList;
 
 public class LinkedList<T> extends AbstractList<T> {
 
     private Node<T> first;
-    private Node<T> last;
 
     private static class Node<T> {
         T element;
-        Node<T> prev;
         Node<T> next;
 
-        public Node(Node<T> prev, T element, Node<T> next) {
-            this.prev = prev;
+        public Node(T element, Node<T> next) {
             this.element = element;
             this.next = next;
         }
@@ -21,7 +20,6 @@ public class LinkedList<T> extends AbstractList<T> {
     @Override
     public void clear() {
         first = null;
-        last = null;
         size = 0;
     }
 
@@ -41,23 +39,11 @@ public class LinkedList<T> extends AbstractList<T> {
     @Override
     public void add(int index, T element) {
         rangeCheckForAdd(index);
-        if (index == size){
-            last = new Node<>(last, element, null);
-            if (last.prev == null){
-                first = last;
-            } else {
-                last.prev.next = last;
-            }
+        if (index == 0){
+            first = new Node<>(element, first);
         } else {
-            Node<T> next = node(index);
-            Node<T> prev = next.prev;
-            Node<T> node = new Node<>(prev, element, next);
-            next.prev = node;
-            if (prev == null) {
-                first = node;
-            } else {
-                prev.next = node;
-            }
+            Node<T> prev = node(index - 1);
+            prev.next = new Node<>(element, prev.next);
         }
         size++;
     }
@@ -65,17 +51,17 @@ public class LinkedList<T> extends AbstractList<T> {
     @Override
     public T remove(int index) {
         rangeCheck(index);
-
-        Node<T> node = node(index);
-        Node<T> prev = node.prev;
-        Node<T> next = node.next;
-        if (prev == null) first = next;
-        else prev.next = next;
-        if (next == null) last = prev;
-        else next.prev = prev;
-
+        T element = null;
+        if (index == 0){
+            element = first.element;
+            first = first.next;
+        } else {
+            Node<T> prev = node(index - 1);
+            element = prev.next.element;
+            prev.next = prev.next.next;
+        }
         size--;
-        return node.element;
+        return element;
     }
 
     @Override
@@ -113,18 +99,10 @@ public class LinkedList<T> extends AbstractList<T> {
 
     private Node<T> node(int index) {
         rangeCheck(index);
-        if (index < (size >> 1)) {
-            Node<T> node = this.first;
-            for (int i = 0; i < index; i++) {
-                node = node.next;
-            }
-            return node;
-        } else {
-            Node<T> node = this.last;
-            for (int i = size - 1; i > index; i--) {
-                node = node.prev;
-            }
-            return node;
+        Node<T> node = this.first;
+        for (int i = 0; i < index; i++) {
+            node = node.next;
         }
+        return node;
     }
 }

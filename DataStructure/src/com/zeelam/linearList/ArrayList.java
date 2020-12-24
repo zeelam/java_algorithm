@@ -1,5 +1,7 @@
 package com.zeelam.linearList;
 
+import java.util.Objects;
+
 public class ArrayList<T> extends AbstractList<T>{
 
     /**
@@ -27,6 +29,9 @@ public class ArrayList<T> extends AbstractList<T>{
             elements[i] = null;
         }
         size = 0;
+        if (elements != null && elements.length > DEFAULT_CAPACITY) {
+            elements = (T[]) new Object[DEFAULT_CAPACITY];
+        }
     }
 
     /**
@@ -79,7 +84,21 @@ public class ArrayList<T> extends AbstractList<T>{
             elements[i] = elements[i + 1];
         }
         elements[--size] = null;
+
+        trim();
+
         return old;
+    }
+
+    private void trim() {
+        int capacity = elements.length;
+        if (size >= (capacity >> 1) || capacity <= DEFAULT_CAPACITY) return;
+        int newCapacity = capacity >> 1;
+        T[] newElements = (T[])new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newElements[i] = elements[i];
+        }
+        elements = newElements;
     }
 
     /**
