@@ -1,7 +1,5 @@
 package com.zeelam.linearList;
 
-import java.util.Objects;
-
 public class ArrayList<T> extends AbstractList<T>{
 
     /**
