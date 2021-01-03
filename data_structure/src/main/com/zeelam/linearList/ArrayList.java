@@ -9,7 +9,6 @@ public class ArrayList<T> extends AbstractList<T>{
 
     private static final int DEFAULT_CAPACITY = 10;
 
-
     public ArrayList(){
         this(DEFAULT_CAPACITY);
     }
