@@ -49,7 +49,8 @@ public class Queue<T> {
     }
 
     private int index(int index){
-        return (index + front) % elements.length;
+        index += front;
+        return index - (elements.length > index ? 0 : elements.length);
     }
 
     private void ensureCapacity(int capacity) {

@@ -69,7 +69,7 @@ public class Deque<T> {
     private int index(int index){
         index += front;
         if (index < 0) return index + elements.length;
-        return index % elements.length;
+        return index - (elements.length > index ? 0 : elements.length);
     }
 
     private void ensureCapacity(int capacity) {
