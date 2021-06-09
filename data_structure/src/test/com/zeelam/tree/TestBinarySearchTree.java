@@ -40,11 +40,21 @@ public class TestBinarySearchTree {
     @Test
     public void testBstPreorderTraversal(){
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 10; i++) {
             bst.add((int) (Math.random() * 100));
         }
         BinaryTrees.println(bst);
         bst.preorderTraversal();
+    }
+
+    @Test
+    public void testBstInorderTraversal(){
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        for (int i = 0; i < 10; i++) {
+            bst.add((int) (Math.random() * 100));
+        }
+        BinaryTrees.println(bst);
+        bst.inorderTraversal();
     }
 
 }
