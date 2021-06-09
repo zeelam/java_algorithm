@@ -98,6 +98,17 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         inorderTraversal(node.right);
     }
 
+    public void postorderTraversal(){
+        postorderTraversal(root);
+    }
+
+    private void postorderTraversal(Node<T> node) {
+        if (node == null) return;
+        postorderTraversal(node.left);
+        postorderTraversal(node.right);
+        System.out.println(node.element);
+    }
+
     private void elementNotNullCheck(T element) {
         if (element == null) throw new IllegalArgumentException("element cannot be null");
     }

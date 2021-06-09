@@ -57,4 +57,14 @@ public class TestBinarySearchTree {
         bst.inorderTraversal();
     }
 
+    @Test
+    public void testBstPostorderTraversal(){
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        for (int i = 0; i < 10; i++) {
+            bst.add((int) (Math.random() * 100));
+        }
+        BinaryTrees.println(bst);
+        bst.postorderTraversal();
+    }
+
 }
