@@ -3,6 +3,8 @@ package com.zeelam.tree;
 import com.zeelam.util.printer.BinaryTreeInfo;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BinarySearchTree<T> implements BinaryTreeInfo {
 
@@ -107,6 +109,18 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         postorderTraversal(node.left);
         postorderTraversal(node.right);
         System.out.println(node.element);
+    }
+
+    public void levelOrderTraversal(){
+        if (root == null) return;
+        Queue<Node<T>> nodes = new LinkedList<>();
+        nodes.offer(root);
+        while (!nodes.isEmpty()) {
+            Node<T> node = nodes.poll();
+            System.out.println(node.element);
+            if (node.left != null) nodes.offer(node.left);
+            if (node.right != null) nodes.offer(node.right);
+        }
     }
 
     private void elementNotNullCheck(T element) {
