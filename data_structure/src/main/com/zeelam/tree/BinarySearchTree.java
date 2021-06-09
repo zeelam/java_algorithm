@@ -48,7 +48,7 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
             } else if(cmp < 0) {
                 node = node.left;
             } else {
-                return;
+                node.element = element;
             }
         }
         Node<T> newNode = new Node<>(element, parent);
