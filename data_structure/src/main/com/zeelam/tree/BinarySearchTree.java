@@ -49,6 +49,7 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
                 node = node.left;
             } else {
                 node.element = element;
+                return;
             }
         }
         Node<T> newNode = new Node<>(element, parent);
@@ -73,6 +74,17 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
 
     public boolean contains(T element) {
         return false;
+    }
+
+    public void preorderTraversal(){
+        preorderTraversal(root);
+    }
+
+    private void preorderTraversal(Node<T> node){
+        if (node == null) return;
+        System.out.println(node.element);
+        preorderTraversal(node.left);
+        preorderTraversal(node.right);
     }
 
     private void elementNotNullCheck(T element) {
