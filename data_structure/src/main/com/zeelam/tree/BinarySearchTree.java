@@ -28,6 +28,41 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         return size == 0;
     }
 
+    /**
+     * get the height of tree by iteration
+     * @return int
+     */
+    public int height() {
+        if (root == null) return 0;
+        int height = 0;
+        int levelSize = 1;
+
+        // level order here
+        Queue<Node<T>> nodes = new LinkedList<>();
+        nodes.offer(root);
+        while (!nodes.isEmpty()) {
+            Node<T> node = nodes.poll();
+            levelSize--;
+            if (node.left != null) nodes.offer(node.left);
+            if (node.right != null) nodes.offer(node.right);
+            if (levelSize == 0) {
+                levelSize = nodes.size();
+                height++;
+            }
+        }
+        return height;
+    }
+
+    /**
+     * get the height of node by recursion
+     * @param node selected node
+     * @return int
+     */
+    private int heightRecursion(Node<T> node) {
+        if (node == null) return 0;
+        return 1 + Math.max(heightRecursion(node.left), heightRecursion(node.right));
+    }
+
     public void clear(){
 
     }
@@ -153,6 +188,20 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
     }
 
     @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        toString(root, sb, "");
+        return sb.toString();
+    }
+
+    private void toString(Node<T> node, StringBuilder sb, String prefix) {
+        if (node == null) return;
+        sb.append(prefix).append(node.element).append("\n");
+        toString(node.left, sb, prefix + "L---");
+        toString(node.right, sb, prefix + "R---");
+    }
+
+    @Override
     public Object root() {
         return root;
     }
@@ -172,20 +221,6 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         Node<T> myNode = ((Node<T>) node);
         String parentStr = myNode.parent == null ? "null" : myNode.parent.element.toString();
         return "p(" + parentStr + ")_" + "v(" + myNode.element + ")";
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        toString(root, sb, "");
-        return sb.toString();
-    }
-
-    private void toString(Node<T> node, StringBuilder sb, String prefix) {
-        if (node == null) return;
-        sb.append(prefix).append(node.element).append("\n");
-        toString(node.left, sb, prefix + "L---");
-        toString(node.right, sb, prefix + "R---");
     }
 
     private static class Node<T> {
