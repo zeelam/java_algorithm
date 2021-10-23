@@ -110,4 +110,13 @@ public class TestBinarySearchTree {
         System.out.println();
     }
 
+    @Test
+    public void testBstToString(){
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        for (int i = 0; i < 10; i++) {
+            bst.add((int) (Math.random() * 100));
+        }
+        System.out.println(bst);
+    }
+
 }

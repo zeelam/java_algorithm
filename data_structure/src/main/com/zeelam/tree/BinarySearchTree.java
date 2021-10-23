@@ -174,6 +174,20 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         return "p(" + parentStr + ")_" + "v(" + myNode.element + ")";
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        toString(root, sb, "");
+        return sb.toString();
+    }
+
+    private void toString(Node<T> node, StringBuilder sb, String prefix) {
+        if (node == null) return;
+        sb.append(prefix).append(node.element).append("\n");
+        toString(node.left, sb, prefix + "L---");
+        toString(node.right, sb, prefix + "R---");
+    }
+
     private static class Node<T> {
         T element;
         Node<T> left;
