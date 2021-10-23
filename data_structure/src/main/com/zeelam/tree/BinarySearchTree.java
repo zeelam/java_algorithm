@@ -78,6 +78,9 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         return false;
     }
 
+    /**
+     * 前序遍历 根->左->右
+     */
     public void preorderTraversal(){
         preorderTraversal(root);
     }
@@ -89,6 +92,9 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         preorderTraversal(node.right);
     }
 
+    /**
+     * 中序遍历 左->根->右
+     */
     public void inorderTraversal(){
         inorderTraversal(root);
     }
@@ -100,6 +106,9 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         inorderTraversal(node.right);
     }
 
+    /**
+     * 后序遍历 左->右->根
+     */
     public void postorderTraversal(){
         postorderTraversal(root);
     }
@@ -111,6 +120,9 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         System.out.println(node.element);
     }
 
+    /**
+     * 层序遍历
+     */
     public void levelOrderTraversal(){
         if (root == null) return;
         Queue<Node<T>> nodes = new LinkedList<>();
