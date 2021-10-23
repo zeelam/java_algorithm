@@ -3,6 +3,7 @@ package com.zeelam.tree;
 import com.zeelam.util.Person;
 import com.zeelam.util.PersonWithCom;
 import com.zeelam.util.printer.BinaryTrees;
+import com.zeelam.tree.BinarySearchTree.Visitor;
 import org.junit.Test;
 
 public class TestBinarySearchTree {
@@ -44,7 +45,15 @@ public class TestBinarySearchTree {
             bst.add((int) (Math.random() * 100));
         }
         BinaryTrees.println(bst);
-        bst.preorderTraversal();
+        bst.preorderTraversal(new Visitor<Integer>() {
+            int count = 0;
+            @Override
+            public boolean visit(Integer element) {
+                System.out.print("_" + element + "_");
+                return ++count >= 3;
+            }
+        });
+        System.out.println();
     }
 
     @Test
@@ -54,7 +63,15 @@ public class TestBinarySearchTree {
             bst.add((int) (Math.random() * 100));
         }
         BinaryTrees.println(bst);
-        bst.inorderTraversal();
+        bst.inorderTraversal(new Visitor<Integer>() {
+            int count = 0;
+            @Override
+            public boolean visit(Integer element) {
+                System.out.print("_" + element + "_");
+                return ++count >= 3;
+            }
+        });
+        System.out.println();
     }
 
     @Test
@@ -64,7 +81,15 @@ public class TestBinarySearchTree {
             bst.add((int) (Math.random() * 100));
         }
         BinaryTrees.println(bst);
-        bst.postorderTraversal();
+        bst.postorderTraversal(new Visitor<Integer>() {
+            int count = 0;
+            @Override
+            public boolean visit(Integer element) {
+                System.out.print("_" + element + "_");
+                return ++count >= 3;
+            }
+        });
+        System.out.println();
     }
 
     @Test
@@ -74,7 +99,15 @@ public class TestBinarySearchTree {
             bst.add((int) (Math.random() * 100));
         }
         BinaryTrees.println(bst);
-        bst.levelOrderTraversal();
+        bst.levelOrderTraversal(new Visitor<Integer>() {
+            int count = 0;
+            @Override
+            public boolean visit(Integer element) {
+                System.out.print("_" + element + "_");
+                return ++count >= 3;
+            }
+        });
+        System.out.println();
     }
 
 }
