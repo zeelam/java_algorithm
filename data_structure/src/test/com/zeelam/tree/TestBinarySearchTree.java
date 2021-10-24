@@ -129,4 +129,26 @@ public class TestBinarySearchTree {
         System.out.println(bst.height());
     }
 
+    @Test
+    public void testBstCompleted(){
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.add(7);
+        bst.add(4);
+        bst.add(9);
+        bst.add(2);
+        bst.add(5);
+        BinaryTrees.println(bst);
+        System.out.println(bst.isComplete());
+
+        bst = new BinarySearchTree<>();
+        bst.add(7);
+        bst.add(5);
+        bst.add(2);
+        bst.add(9);
+        bst.add(4);
+        BinaryTrees.println(bst);
+        System.out.println(bst.isComplete());
+
+    }
+
 }

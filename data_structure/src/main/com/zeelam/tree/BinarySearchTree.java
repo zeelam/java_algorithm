@@ -63,6 +63,56 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         return 1 + Math.max(heightRecursion(node.left), heightRecursion(node.right));
     }
 
+        public boolean isComplete() {
+        if (root == null) return false;
+
+        Queue<Node<T>> nodes = new LinkedList<>();
+        nodes.offer(root);
+        boolean leaf = false;
+        while (!nodes.isEmpty()) {
+            Node<T> node = nodes.poll();
+
+            if (leaf && !node.isLeaf()) return false;
+
+            if (node.left != null) {
+                nodes.offer(node.left);
+            } else if (node.right != null) {
+                return false;
+            }
+
+            if (node.right != null) {
+                nodes.offer(node.right);
+            } else {
+                leaf = true;
+            }
+
+        }
+        return true;
+    }
+
+//    public boolean isComplete() {
+//        if (root == null) return false;
+//
+//        Queue<Node<T>> nodes = new LinkedList<>();
+//        nodes.offer(root);
+//        boolean leaf = false;
+//
+//        while (!nodes.isEmpty()) {
+//            Node<T> node = nodes.poll();
+//            if (leaf && !node.isLeaf()) return false;
+//            if (node.hasTwoChildren()) {
+//                nodes.offer(node.left);
+//                nodes.offer(node.right);
+//            } else if (node.left == null && node.right != null) {
+//                return false;
+//            } else {
+//                leaf = true;
+//                if (node.left != null) nodes.offer(node.left);
+//            }
+//        }
+//        return true;
+//    }
+
     public void clear(){
 
     }
@@ -232,6 +282,14 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         public Node(T element, Node<T> parent){
             this.element = element;
             this.parent = parent;
+        }
+
+        public boolean isLeaf(){
+            return left == null && right == null;
+        }
+
+        public boolean hasTwoChildren() {
+            return left != null && right != null;
         }
 
     }
