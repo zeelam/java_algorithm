@@ -228,13 +228,45 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         }
     }
 
+    public static abstract class Visitor<T>{
+        boolean isStop;
+        abstract boolean visit(T element);
+    }
+
     private void elementNotNullCheck(T element) {
         if (element == null) throw new IllegalArgumentException("element cannot be null");
     }
 
-    public static abstract class Visitor<T>{
-        boolean isStop;
-        abstract boolean visit(T element);
+    private Node<T> predecessor(Node<T> node) {
+        if (node == null) return null;
+        Node<T> p = node.left;
+        // predecessor in the left tree
+        if (p != null) {
+            while (p.right != null) {
+                p = p.right;
+            }
+            return p;
+        }
+        while (node.parent != null && node == node.parent.left) {
+            node = node.parent;
+        }
+        return node.parent;
+    }
+
+    private Node<T> successor(Node<T> node) {
+        if (node == null) return null;
+        Node<T> p = node.right;
+        // successor in the right tree
+        if (p != null) {
+            while (p.left != null) {
+                p = p.left;
+            }
+            return p;
+        }
+        while (node.parent != null && node == node.parent.right) {
+            node = node.parent;
+        }
+        return node.parent;
     }
 
     @Override
