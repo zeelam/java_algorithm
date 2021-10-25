@@ -156,12 +156,51 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
     }
 
     public void remove(T element) {
+        remove(node(element));
+    }
 
+    private void remove(Node<T> node){
+        if (node == null) return;
+        size--;
+        if (node.hasTwoChildren()) {
+            Node<T> successor = successor(node);
+            node.element = successor.element;
+            node = successor;
+        }
+        Node<T> replacement = node.left != null ? node.left : node.right;
+        if (replacement != null) {
+            replacement.parent = node.parent;
+            if (node.parent == null) root = replacement;
+            else if (node == node.parent.left) node.parent.left = replacement;
+            else node.parent.right = replacement;
+        } else if (node.parent == null) {
+            root = null;
+        } else {
+            if (node == node.parent.left)
+                node.parent.left = null;
+            else
+                node.parent.right = null;
+        }
+    }
+
+    private Node<T> node(T element) {
+        Node<T> node = root;
+        while (node != null) {
+            int cmp = compare(element, node.element);
+            if (cmp == 0) return node;
+            if (cmp > 0) {
+                node = node.right;
+            } else {
+                node = node.left;
+            }
+        }
+        return null;
     }
 
     public boolean contains(T element) {
         return false;
     }
+
 
     /**
      * preorder
