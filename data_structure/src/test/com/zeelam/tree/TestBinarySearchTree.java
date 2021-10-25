@@ -3,7 +3,7 @@ package com.zeelam.tree;
 import com.zeelam.util.Person;
 import com.zeelam.util.PersonWithCom;
 import com.zeelam.util.printer.BinaryTrees;
-import com.zeelam.tree.BinarySearchTree.Visitor;
+import com.zeelam.tree.BinaryTree.Visitor;
 import org.junit.Test;
 
 public class TestBinarySearchTree {
