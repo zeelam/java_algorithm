@@ -176,10 +176,8 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
         } else if (node.parent == null) {
             root = null;
         } else {
-            if (node == node.parent.left)
-                node.parent.left = null;
-            else
-                node.parent.right = null;
+            if (node == node.parent.left) node.parent.left = null;
+            else node.parent.right = null;
         }
     }
 
@@ -198,9 +196,8 @@ public class BinarySearchTree<T> implements BinaryTreeInfo {
     }
 
     public boolean contains(T element) {
-        return false;
+        return node(element) != null;
     }
-
 
     /**
      * preorder

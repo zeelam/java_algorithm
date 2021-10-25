@@ -179,4 +179,16 @@ public class TestBinarySearchTree {
 
     }
 
+    @Test
+    public void testBstContains(){
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.add(7);
+        bst.add(4);
+        bst.add(9);
+        bst.add(2);
+        bst.add(5);
+        BinaryTrees.println(bst);
+        System.out.println(bst.contains(9));
+    }
+
 }
