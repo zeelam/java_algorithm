@@ -80,7 +80,10 @@ public class BinarySearchTree<T> extends BinaryTree<T>  {
             if (node == node.parent.left) node.parent.left = null;
             else node.parent.right = null;
         }
+        afterRemove(node);
     }
+
+    protected void afterRemove(Node<T> node) {}
 
     private Node<T> node(T element) {
         Node<T> node = root;
