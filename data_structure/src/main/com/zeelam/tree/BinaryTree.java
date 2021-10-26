@@ -242,6 +242,12 @@ public class BinaryTree<T> implements BinaryTreeInfo {
             return parent != null && this == parent.right;
         }
 
+        @Override
+        public String toString() {
+            String parentStr = parent == null ? "null" : parent.element.toString();
+            return "p(" + parentStr + ")_" + "v(" + element + ")";
+        }
+
     }
 
     @Override
@@ -261,9 +267,7 @@ public class BinaryTree<T> implements BinaryTreeInfo {
 
     @Override
     public Object string(Object node) {
-        Node<T> myNode = ((Node<T>) node);
-        String parentStr = myNode.parent == null ? "null" : myNode.parent.element.toString();
-        return "p(" + parentStr + ")_" + "v(" + myNode.element + ")";
+        return node;
     }
 
 }
