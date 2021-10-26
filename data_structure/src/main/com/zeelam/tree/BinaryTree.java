@@ -211,6 +211,10 @@ public class BinaryTree<T> implements BinaryTreeInfo {
         if (element == null) throw new IllegalArgumentException("element cannot be null");
     }
 
+    protected Node<T> createNode(T element, Node<T> parent) {
+        return new Node<>(element, parent);
+    }
+
     protected static class Node<T> {
         T element;
         Node<T> left;
@@ -228,6 +232,14 @@ public class BinaryTree<T> implements BinaryTreeInfo {
 
         public boolean hasTwoChildren() {
             return left != null && right != null;
+        }
+
+        public boolean isLeftChild(){
+            return parent != null && this == parent.left;
+        }
+
+        public boolean isRightChild(){
+            return parent != null && this == parent.right;
         }
 
     }

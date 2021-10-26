@@ -17,8 +17,9 @@ public class BinarySearchTree<T> extends BinaryTree<T>  {
     public void add(T element){
         elementNotNullCheck(element);
         if (root == null) {
-            root = new Node<>(element, null);
+            root = createNode(element, null);
             size++;
+            afterAdd(root);
             return;
         }
         Node<T> parent = root;
@@ -36,14 +37,17 @@ public class BinarySearchTree<T> extends BinaryTree<T>  {
                 return;
             }
         }
-        Node<T> newNode = new Node<>(element, parent);
+        Node<T> newNode = createNode(element, parent);
         if (cmp > 0) {
             parent.right = newNode;
         } else {
             parent.left = newNode;
         }
         size++;
+        afterAdd(newNode);
     }
+
+    protected void afterAdd(Node<T> node) {}
 
     private int compare(T element1, T element2) {
         if (comparator != null){
