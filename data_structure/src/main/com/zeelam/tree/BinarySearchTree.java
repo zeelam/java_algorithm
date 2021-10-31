@@ -74,18 +74,18 @@ public class BinarySearchTree<T> extends BinaryTree<T>  {
             if (node.parent == null) root = replacement;
             else if (node == node.parent.left) node.parent.left = replacement;
             else node.parent.right = replacement;
-            afterRemove(node, replacement);
+            afterRemove(replacement);
         } else if (node.parent == null) {
             root = null;
-            afterRemove(node, null);
+            afterRemove(node);
         } else {
             if (node == node.parent.left) node.parent.left = null;
             else node.parent.right = null;
-            afterRemove(node, null);
+            afterRemove(node);
         }
     }
 
-    protected void afterRemove(Node<T> node, Node<T> replacement) {}
+    protected void afterRemove(Node<T> node) {}
 
     private Node<T> node(T element) {
         Node<T> node = root;

@@ -83,11 +83,9 @@ public class RBTree<T> extends BBST<T> {
   }
 
   @Override
-  protected void afterRemove(Node<T> node, Node<T> replacement) {
-    if (isRed(node)) return;
-
-    if (isRed(replacement)) {
-      black(replacement);
+  protected void afterRemove(Node<T> node) {
+    if (isRed(node)) {
+      black(node);
       return;
     }
 
@@ -108,7 +106,7 @@ public class RBTree<T> extends BBST<T> {
         black(parent);
         red(sibling);
         if (parentBlack) {
-          afterRemove(parent, null);
+          afterRemove(parent);
         }
       } else {
         if (isBlack(sibling.right)) {
@@ -132,7 +130,7 @@ public class RBTree<T> extends BBST<T> {
         black(parent);
         red(sibling);
         if (parentBlack) {
-          afterRemove(parent, null);
+          afterRemove(parent);
         }
       } else {
         if (isBlack(sibling.left)) {

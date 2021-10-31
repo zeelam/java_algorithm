@@ -25,7 +25,7 @@ public class AVLTree<T> extends BBST<T> {
     }
 
     @Override
-    protected void afterRemove(Node<T> node, Node<T> replacement) {
+    protected void afterRemove(Node<T> node) {
         while ((node = node.parent) != null) {
             if (isBalanced(node)) {
                 updateHeight(node);
