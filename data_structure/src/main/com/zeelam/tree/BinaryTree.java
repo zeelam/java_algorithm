@@ -242,6 +242,16 @@ public class BinaryTree<T> implements BinaryTreeInfo {
             return parent != null && this == parent.right;
         }
 
+        public Node<T> sibling() {
+            if (isLeftChild()) {
+                return parent.right;
+            }
+            if (isRightChild()) {
+                return parent.left;
+            }
+            return null;
+        }
+
         @Override
         public String toString() {
             String parentStr = parent == null ? "null" : parent.element.toString();
