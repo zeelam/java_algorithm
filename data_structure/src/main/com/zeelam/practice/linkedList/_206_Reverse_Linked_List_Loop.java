@@ -22,15 +22,14 @@ public class _206_Reverse_Linked_List_Loop {
     }
 
     public ListNode reverseList(ListNode head) {
-        ListNode newList = null;
-        ListNode node = head;
-        while (node != null) {
-            ListNode temp = node.next;
-            node.next = newList;
-            newList = node;
-            node = temp;
+        ListNode newHead = null;
+        while (head != null) {
+            ListNode temp = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = temp;
         }
-        return newList;
+        return newHead;
     }
 
 }
